@@ -9,6 +9,13 @@ const InputView = {
     );
     return input;
   },
+
+  async readMenu() {
+    const input = await Console.readLineAsync(
+      CONSOLE_MESSAGE.inputMenu + LINE_SEPARATOR
+    );
+    return input;
+  },
 };
 
 export default InputView;
