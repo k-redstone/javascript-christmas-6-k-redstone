@@ -1,4 +1,4 @@
-import OrderController from "./controller/OrderController";
+import OrderController from "./controller/OrderController.js";
 
 class App {
   async run() {
