@@ -5,14 +5,14 @@ import { EOL as LINE_SEPARATOR } from "os";
 const InputView = {
   async readDate() {
     const input = await Console.readLineAsync(
-      CONSOLE_MESSAGE.inputDate + LINE_SEPARATOR
+      CONSOLE_MESSAGE.input_date + LINE_SEPARATOR
     );
     return input;
   },
 
   async readMenu() {
     const input = await Console.readLineAsync(
-      CONSOLE_MESSAGE.inputMenu + LINE_SEPARATOR
+      CONSOLE_MESSAGE.input_menu + LINE_SEPARATOR
     );
     return input;
   },
