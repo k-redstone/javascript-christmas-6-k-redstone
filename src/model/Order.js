@@ -1,4 +1,5 @@
 import { SETTING } from "../constants/Setting.js";
+import { CONSOLE_MESSAGE, format } from "../constants/ConsoleMessage.js";
 
 class Order {
   #orderList;
@@ -11,7 +12,9 @@ class Order {
   getOrderList() {
     const orderList = [];
     this.#orderList.forEach((order) => {
-      orderList.push(`${order.name} ${order.count}개`);
+      orderList.push(
+        format(CONSOLE_MESSAGE.output_menuList, order.name, order.count)
+      );
     });
     return orderList;
   }
