@@ -16,16 +16,22 @@ class OrderController {
     const [visitDate, visitDay] = await this.#getVisitDate();
     const menu = await this.#getMenu();
     OutputView.printpreview(visitDate);
-    this.#orderList = new Order(menu);
-    OutputView.printMenuList(this.#orderList.getOrderList());
+    this.#createOrder(menu, visitDate, visitDay);
     this.printBeforeDiscount();
     this.printFreeMenuAvailable();
-    this.#billPaper = new Bill(
-      this.#orderList.getOrderList(),
-      visitDate,
-      visitDay,
-      this.#orderList.isFreeMenuAvailable()
+    this.#printBenefitList();
+    OutputView.printTotalBenefitPrice(this.#billPaper.getTotalBenefitPrice());
+    OutputView.printPayment(
+      this.#orderList.getBeforeDiscountPrice() -
+        this.#billPaper.getTotalDiscountPrice()
     );
+    this.#printBadgeList();
+  }
+  #printBadgeList() {
+    const badge = new Badge(this.#billPaper.getTotalBenefitPrice());
+    OutputView.printBadge(badge.getBadge());
+  }
+  #printBenefitList() {
     OutputView.printChristmasDiscount(
       this.#billPaper.getChristmasDiscountPrice()
     );
@@ -36,15 +42,6 @@ class OrderController {
       this.#billPaper.getFreeMenuDiscountPrice()
     );
     OutputView.printNoneEvent(this.#billPaper.getTotalDiscountPrice());
-    OutputView.printTotalBenefitPrice(this.#billPaper.getTotalBenefitPrice());
-    OutputView.printPayment(
-      this.#orderList.getBeforeDiscountPrice() -
-        this.#billPaper.getTotalDiscountPrice()
-    );
-
-    const badge = new Badge(this.#billPaper.getTotalBenefitPrice());
-
-    OutputView.printBadge(badge.getBadge());
   }
 
   printFreeMenuAvailable() {
@@ -56,7 +53,16 @@ class OrderController {
       this.#orderList.getBeforeDiscountPrice().toLocaleString("ko-KR")
     );
   }
-  async #createOrder() {}
+  #createOrder(menu, visitDate, visitDay) {
+    this.#orderList = new Order(menu);
+    OutputView.printMenuList(this.#orderList.getOrderList());
+    this.#billPaper = new Bill(
+      this.#orderList.getOrderList(),
+      visitDate,
+      visitDay,
+      this.#orderList.isFreeMenuAvailable()
+    );
+  }
 
   async #getVisitDate() {
     try {
