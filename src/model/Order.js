@@ -1,5 +1,4 @@
 import { SETTING } from "../constants/Setting.js";
-import { CONSOLE_MESSAGE, format } from "../constants/ConsoleMessage.js";
 
 class Order {
   #orderList;

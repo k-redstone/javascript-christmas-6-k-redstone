@@ -1,6 +1,6 @@
 import { Console } from "@woowacourse/mission-utils";
 import { validateVisitDate, validateMenu } from "../utils/Validation.js";
-import { getDay, splitMenuInput } from "../utils/common.js";
+import { getDay } from "../utils/common.js";
 import InputView from "../view/InputView.js";
 import OutputView from "../view/OutputView.js";
 import Order from "../model/Order.js";
