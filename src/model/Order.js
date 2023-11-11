@@ -25,6 +25,10 @@ class Order {
     }, 0);
   }
 
+  isFreeMenuAvailable() {
+    if (this.getBeforeDiscountPrice() >= SETTING.free_menu_threshold)
+      return true;
+  }
   #splitMenuInput(menu) {
     const splitMenu = menu.split(",");
     splitMenu.forEach((menu) => {

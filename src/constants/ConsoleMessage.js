@@ -8,13 +8,14 @@ export const CONSOLE_MESSAGE = Object.freeze({
   output_menu: "<주문 메뉴>",
   output_menuList: "{0} {1}개",
   output_before_discount: "<할인 전 총주문 금액>",
-  output_service_menu: "<증정 메뉴>",
+  output_free_menu: "<증정 메뉴>",
   output_benefit: "<혜택 내역>",
   output_discount_price: "<총혜택 금액>",
   output_after_discount: "<할인 후 예상 결제 금액>",
   output_event_badge: "<12월 이벤트 배지>",
   count_unit: "개",
   price_unit: "원",
+  none_event: "없음",
 });
 
 export function format(templateMessage, ...args) {

@@ -1,6 +1,9 @@
 export const SETTING = Object.freeze({
   dateReg: /^([1-9]|[1-2][0-9]|3[0-1])$/,
   countReg: /^([1-9]|[1-2][0-9])$/,
+  free_menu_threshold: 120000,
+  free_menu_name: "샴페인 1개",
+  free_menu_price: 25000,
   menuList: [
     { name: "양송이수프", price: 6000, type: "appetizer" },
     { name: "타파스", price: 5500, type: "appetizer" },

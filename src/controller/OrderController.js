@@ -16,6 +16,11 @@ class OrderController {
     this.#orderList = new Order(menu);
     OutputView.printMenuList(this.#orderList.getOrderList());
     this.printBeforeDiscountPrice();
+    this.printFreeMenuAvailable();
+  }
+
+  printFreeMenuAvailable() {
+    OutputView.printFreeMenu(this.#orderList.isFreeMenuAvailable());
   }
 
   printBeforeDiscountPrice() {
