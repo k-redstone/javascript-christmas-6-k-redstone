@@ -15,8 +15,14 @@ class OrderController {
     OutputView.printpreview(visitDate);
     this.#orderList = new Order(menu);
     OutputView.printMenuList(this.#orderList.getOrderList());
+    this.printBeforeDiscountPrice();
   }
 
+  printBeforeDiscountPrice() {
+    OutputView.printBeforeDiscountPrice(
+      this.#orderList.getBeforeDiscountPrice().toLocaleString("ko-KR")
+    );
+  }
   async #createOrder() {}
 
   async #getVisitDate() {

@@ -19,6 +19,12 @@ class Order {
     return orderList;
   }
 
+  getBeforeDiscountPrice() {
+    return this.#orderList.reduce((acc, cur) => {
+      return (acc += cur.price * cur.count);
+    }, 0);
+  }
+
   #splitMenuInput(menu) {
     const splitMenu = menu.split(",");
     splitMenu.forEach((menu) => {

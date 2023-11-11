@@ -15,6 +15,10 @@ const OutputView = {
       Console.print(menu);
     });
   },
+  printBeforeDiscountPrice(price) {
+    Console.print(LINE_SEPARATOR + CONSOLE_MESSAGE.output_before_discount);
+    Console.print(price + CONSOLE_MESSAGE.price_unit);
+  },
 };
 
 export default OutputView;
