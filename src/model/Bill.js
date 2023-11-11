@@ -60,8 +60,15 @@ class Bill {
     }
     return 0;
   }
-
   getTotalDiscountPrice() {
+    return (
+      this.getChristmasDiscountPrice() +
+      this.getWeekDiscountPrice() +
+      this.getWeekendDiscountPrice() +
+      this.getSpecialDiscountPrice()
+    );
+  }
+  getTotalBenefitPrice() {
     return (
       this.getChristmasDiscountPrice() +
       this.getWeekDiscountPrice() +

@@ -71,6 +71,16 @@ const OutputView = {
   printNoneEvent(price) {
     if (price === 0) Console.print(CONSOLE_MESSAGE.none_event);
   },
+  printTotalBenefitPrice(price) {
+    Console.print(LINE_SEPARATOR + CONSOLE_MESSAGE.output_discount_price);
+    Console.print(
+      "-" + price.toLocaleString("ko-KR") + CONSOLE_MESSAGE.price_unit
+    );
+  },
+  printPayment(price) {
+    Console.print(LINE_SEPARATOR + CONSOLE_MESSAGE.output_after_discount);
+    Console.print(price.toLocaleString("ko-KR") + CONSOLE_MESSAGE.price_unit);
+  },
 };
 
 export default OutputView;

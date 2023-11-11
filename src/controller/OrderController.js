@@ -35,6 +35,11 @@ class OrderController {
       this.#billPaper.getFreeMenuDiscountPrice()
     );
     OutputView.printNoneEvent(this.#billPaper.getTotalDiscountPrice());
+    OutputView.printTotalBenefitPrice(this.#billPaper.getTotalBenefitPrice());
+    OutputView.printPayment(
+      this.#orderList.getBeforeDiscountPrice() -
+        this.#billPaper.getTotalDiscountPrice()
+    );
   }
 
   printFreeMenuAvailable() {
