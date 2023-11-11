@@ -5,6 +5,7 @@ import InputView from "../view/InputView.js";
 import OutputView from "../view/OutputView.js";
 import Order from "../model/Order.js";
 import Bill from "../model/Bill.js";
+import Badge from "../model/Badge.js";
 
 class OrderController {
   #orderList;
@@ -40,6 +41,10 @@ class OrderController {
       this.#orderList.getBeforeDiscountPrice() -
         this.#billPaper.getTotalDiscountPrice()
     );
+
+    const badge = new Badge(this.#billPaper.getTotalBenefitPrice());
+
+    OutputView.printBadge(badge.getBadge());
   }
 
   printFreeMenuAvailable() {

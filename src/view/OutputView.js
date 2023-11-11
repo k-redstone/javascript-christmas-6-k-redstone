@@ -73,13 +73,20 @@ const OutputView = {
   },
   printTotalBenefitPrice(price) {
     Console.print(LINE_SEPARATOR + CONSOLE_MESSAGE.output_discount_price);
-    Console.print(
-      "-" + price.toLocaleString("ko-KR") + CONSOLE_MESSAGE.price_unit
-    );
+    if (price === 0)
+      Console.print(price.toLocaleString("ko-KR") + CONSOLE_MESSAGE.price_unit);
+    if (price !== 0)
+      Console.print(
+        "-" + price.toLocaleString("ko-KR") + CONSOLE_MESSAGE.price_unit
+      );
   },
   printPayment(price) {
     Console.print(LINE_SEPARATOR + CONSOLE_MESSAGE.output_after_discount);
     Console.print(price.toLocaleString("ko-KR") + CONSOLE_MESSAGE.price_unit);
+  },
+  printBadge(badge) {
+    Console.print(LINE_SEPARATOR + CONSOLE_MESSAGE.output_event_badge);
+    Console.print(badge);
   },
 };
 

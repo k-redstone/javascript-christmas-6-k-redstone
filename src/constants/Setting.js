@@ -12,6 +12,10 @@ export const SETTING = Object.freeze({
   special_discount: 1000,
   week_discount_type: "dessert",
   weekend_discount_type: "mainCourse",
+  badge_star: "별",
+  badge_tree: "트리",
+  badge_santa: "산타",
+  badge_none: "없음",
   menuList: [
     { name: "양송이수프", price: 6000, type: "appetizer" },
     { name: "타파스", price: 5500, type: "appetizer" },
