@@ -10,13 +10,7 @@ class Order {
   }
 
   getOrderList() {
-    const orderList = [];
-    this.#orderList.forEach((order) => {
-      orderList.push(
-        format(CONSOLE_MESSAGE.output_menuList, order.name, order.count)
-      );
-    });
-    return orderList;
+    return this.#orderList;
   }
 
   getBeforeDiscountPrice() {

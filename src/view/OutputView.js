@@ -13,7 +13,9 @@ const OutputView = {
   printMenuList(menuList) {
     Console.print(LINE_SEPARATOR + CONSOLE_MESSAGE.output_menu);
     menuList.forEach((menu) => {
-      Console.print(menu);
+      Console.print(
+        format(CONSOLE_MESSAGE.output_menuList, menu.name, menu.count)
+      );
     });
   },
   printBeforeDiscountPrice(price) {
