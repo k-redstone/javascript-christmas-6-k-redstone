@@ -18,7 +18,7 @@ const OutputView = {
       );
     });
   },
-  printBeforeDiscountPrice(price) {
+  printBeforeDiscount(price) {
     Console.print(LINE_SEPARATOR + CONSOLE_MESSAGE.output_before_discount);
     Console.print(price + CONSOLE_MESSAGE.price_unit);
   },
@@ -27,6 +27,49 @@ const OutputView = {
     boolean
       ? Console.print(SETTING.free_menu_name)
       : Console.print(CONSOLE_MESSAGE.none_event);
+  },
+  printChristmasDiscount(price) {
+    Console.print(LINE_SEPARATOR + CONSOLE_MESSAGE.output_benefit);
+    if (price !== 0)
+      Console.print(
+        format(
+          CONSOLE_MESSAGE.output_christmas_discount,
+          price.toLocaleString("ko-KR")
+        )
+      );
+  },
+  printWeekDiscount(price) {
+    if (price !== 0)
+      Console.print(
+        format(
+          CONSOLE_MESSAGE.output_week_discount,
+          price.toLocaleString("ko-KR")
+        )
+      );
+  },
+  printWeekendDiscount(price) {
+    if (price !== 0)
+      Console.print(
+        format(
+          CONSOLE_MESSAGE.output_weekend_discount,
+          price.toLocaleString("ko-KR")
+        )
+      );
+  },
+  printSpecialDiscount(price) {
+    if (price !== 0)
+      Console.print(
+        format(
+          CONSOLE_MESSAGE.output_special_discount,
+          price.toLocaleString("ko-KR")
+        )
+      );
+  },
+  printFreeMenuDiscount(price) {
+    if (price !== 0) Console.print(CONSOLE_MESSAGE.ouput_free_menu_price);
+  },
+  printNoneEvent(price) {
+    if (price === 0) Console.print(CONSOLE_MESSAGE.none_event);
   },
 };
 

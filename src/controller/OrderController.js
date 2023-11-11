@@ -4,9 +4,11 @@ import { getDay, splitMenuInput } from "../utils/common.js";
 import InputView from "../view/InputView.js";
 import OutputView from "../view/OutputView.js";
 import Order from "../model/Order.js";
+import Bill from "../model/Bill.js";
 
 class OrderController {
   #orderList;
+  #billPaper;
 
   async run() {
     OutputView.printIntro();
@@ -15,16 +17,32 @@ class OrderController {
     OutputView.printpreview(visitDate);
     this.#orderList = new Order(menu);
     OutputView.printMenuList(this.#orderList.getOrderList());
-    this.printBeforeDiscountPrice();
+    this.printBeforeDiscount();
     this.printFreeMenuAvailable();
+    this.#billPaper = new Bill(
+      this.#orderList.getOrderList(),
+      visitDate,
+      visitDay,
+      this.#orderList.isFreeMenuAvailable()
+    );
+    OutputView.printChristmasDiscount(
+      this.#billPaper.getChristmasDiscountPrice()
+    );
+    OutputView.printWeekDiscount(this.#billPaper.getWeekDiscountPrice());
+    OutputView.printWeekendDiscount(this.#billPaper.getWeekendDiscountPrice());
+    OutputView.printSpecialDiscount(this.#billPaper.getSpecialDiscountPrice());
+    OutputView.printFreeMenuDiscount(
+      this.#billPaper.getFreeMenuDiscountPrice()
+    );
+    OutputView.printNoneEvent(this.#billPaper.getTotalDiscountPrice());
   }
 
   printFreeMenuAvailable() {
     OutputView.printFreeMenu(this.#orderList.isFreeMenuAvailable());
   }
 
-  printBeforeDiscountPrice() {
-    OutputView.printBeforeDiscountPrice(
+  printBeforeDiscount() {
+    OutputView.printBeforeDiscount(
       this.#orderList.getBeforeDiscountPrice().toLocaleString("ko-KR")
     );
   }
@@ -35,7 +53,7 @@ class OrderController {
       const visitDate = await InputView.readDate();
       validateVisitDate(visitDate);
       const visitDay = getDay(visitDate);
-      return [visitDate, visitDay];
+      return [parseInt(visitDate), parseInt(visitDay)];
     } catch (error) {
       Console.print(error.message);
       return await this.#getVisitDate();

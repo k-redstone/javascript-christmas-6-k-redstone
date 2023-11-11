@@ -22,7 +22,9 @@ class Order {
   isFreeMenuAvailable() {
     if (this.getBeforeDiscountPrice() >= SETTING.free_menu_threshold)
       return true;
+    return false;
   }
+
   #splitMenuInput(menu) {
     const splitMenu = menu.split(",");
     splitMenu.forEach((menu) => {
