@@ -7,9 +7,11 @@ const OutputView = {
   printIntro() {
     Console.print(CONSOLE_MESSAGE.intro_messgae);
   },
+
   printpreview(date) {
     Console.print(format(CONSOLE_MESSAGE.preview_message, date));
   },
+
   printMenuList(menuList) {
     Console.print(LINE_SEPARATOR + CONSOLE_MESSAGE.output_menu);
     menuList.forEach((menu) => {
@@ -18,16 +20,18 @@ const OutputView = {
       );
     });
   },
+
   printBeforeDiscount(price) {
     Console.print(LINE_SEPARATOR + CONSOLE_MESSAGE.output_before_discount);
-    Console.print(price + CONSOLE_MESSAGE.price_unit);
+    Console.print(price.toLocaleString("ko-KR") + CONSOLE_MESSAGE.price_unit);
   },
-  printFreeMenu(boolean) {
+
+  printFreeMenu(price) {
     Console.print(LINE_SEPARATOR + CONSOLE_MESSAGE.output_free_menu);
-    boolean
-      ? Console.print(SETTING.free_menu_name)
-      : Console.print(CONSOLE_MESSAGE.none_event);
+    if (price !== 0) Console.print(SETTING.free_menu_name);
+    if (price === 0) Console.print(CONSOLE_MESSAGE.none_event);
   },
+
   printChristmasDiscount(price) {
     Console.print(LINE_SEPARATOR + CONSOLE_MESSAGE.output_benefit);
     if (price !== 0)
@@ -38,6 +42,7 @@ const OutputView = {
         )
       );
   },
+
   printWeekDiscount(price) {
     if (price !== 0)
       Console.print(
@@ -47,6 +52,7 @@ const OutputView = {
         )
       );
   },
+
   printWeekendDiscount(price) {
     if (price !== 0)
       Console.print(
@@ -56,6 +62,7 @@ const OutputView = {
         )
       );
   },
+
   printSpecialDiscount(price) {
     if (price !== 0)
       Console.print(
@@ -65,12 +72,15 @@ const OutputView = {
         )
       );
   },
+
   printFreeMenuDiscount(price) {
     if (price !== 0) Console.print(CONSOLE_MESSAGE.ouput_free_menu_price);
   },
+
   printNoneEvent(price) {
     if (price === 0) Console.print(CONSOLE_MESSAGE.none_event);
   },
+
   printTotalBenefitPrice(price) {
     Console.print(LINE_SEPARATOR + CONSOLE_MESSAGE.output_discount_price);
     if (price === 0)
@@ -80,10 +90,12 @@ const OutputView = {
         "-" + price.toLocaleString("ko-KR") + CONSOLE_MESSAGE.price_unit
       );
   },
+
   printPayment(price) {
     Console.print(LINE_SEPARATOR + CONSOLE_MESSAGE.output_after_discount);
     Console.print(price.toLocaleString("ko-KR") + CONSOLE_MESSAGE.price_unit);
   },
+
   printBadge(badge) {
     Console.print(LINE_SEPARATOR + CONSOLE_MESSAGE.output_event_badge);
     Console.print(badge);

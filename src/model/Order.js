@@ -12,18 +12,6 @@ class Order {
     return this.#orderList;
   }
 
-  getBeforeDiscountPrice() {
-    return this.#orderList.reduce((acc, cur) => {
-      return (acc += cur.price * cur.count);
-    }, 0);
-  }
-
-  isFreeMenuAvailable() {
-    if (this.getBeforeDiscountPrice() >= SETTING.free_menu_threshold)
-      return true;
-    return false;
-  }
-
   #splitMenuInput(menu) {
     const splitMenu = menu.split(",");
     splitMenu.forEach((menu) => {

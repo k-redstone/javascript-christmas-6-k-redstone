@@ -4,16 +4,29 @@ class Bill {
   #orderList;
   #visitDate;
   #visitDay;
-  #isFreeMenu;
+  // #isDiscount;
 
-  constructor(orderList, visitDate, visitDay, isFreeMenu) {
+  constructor(orderList, visitDate, visitDay) {
     this.#orderList = orderList;
     this.#visitDate = visitDate;
     this.#visitDay = visitDay;
-    this.#isFreeMenu = isFreeMenu;
+    // this.#isDiscount = this.#setIsDiscountAvailable();
+  }
+
+  #setIsDiscountAvailable() {
+    if (this.getBeforeDiscountPrice() < SETTING.discount_threshold)
+      return false;
+    return true;
+  }
+
+  getBeforeDiscountPrice() {
+    return this.#orderList.reduce((acc, cur) => {
+      return (acc += cur.price * cur.count);
+    }, 0);
   }
 
   getChristmasDiscountPrice() {
+    if (!this.#setIsDiscountAvailable()) return 0;
     if (this.#visitDate <= SETTING.end_christmas_event_day) {
       return (
         SETTING.default_christmas_discount +
@@ -24,6 +37,7 @@ class Bill {
   }
 
   getWeekDiscountPrice() {
+    if (!this.#setIsDiscountAvailable()) return 0;
     if (this.#visitDay >= 0 && this.#visitDay <= 4) {
       const discountList = this.#orderList.filter(
         (menu) => menu.type === SETTING.week_discount_type
@@ -36,6 +50,7 @@ class Bill {
   }
 
   getWeekendDiscountPrice() {
+    if (!this.#setIsDiscountAvailable()) return 0;
     if (this.#visitDay === 5 || this.#visitDay === 6) {
       const discountList = this.#orderList.filter(
         (menu) => menu.type === SETTING.weekend_discount_type
@@ -48,18 +63,27 @@ class Bill {
   }
 
   getSpecialDiscountPrice() {
+    if (!this.#setIsDiscountAvailable()) return 0;
     if (SETTING.special_discount_day.includes(this.#visitDate)) {
       return SETTING.special_discount;
     }
     return 0;
   }
 
+  // getFreeMenuDiscountPrice() {
+  //   if (this.#isFreeMenu) {
+  //     return SETTING.free_menu_price;
+  //   }
+  //   return 0;
+  // }
+
   getFreeMenuDiscountPrice() {
-    if (this.#isFreeMenu) {
+    if (!this.#setIsDiscountAvailable()) return 0;
+    if (this.getBeforeDiscountPrice() >= SETTING.free_menu_threshold)
       return SETTING.free_menu_price;
-    }
     return 0;
   }
+
   getTotalDiscountPrice() {
     return (
       this.getChristmasDiscountPrice() +
@@ -68,6 +92,7 @@ class Bill {
       this.getSpecialDiscountPrice()
     );
   }
+
   getTotalBenefitPrice() {
     return (
       this.getChristmasDiscountPrice() +
@@ -76,6 +101,10 @@ class Bill {
       this.getSpecialDiscountPrice() +
       this.getFreeMenuDiscountPrice()
     );
+  }
+
+  getpayment() {
+    return this.getBeforeDiscountPrice() - this.getTotalDiscountPrice();
   }
 }
 

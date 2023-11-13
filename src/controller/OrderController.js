@@ -17,14 +17,11 @@ class OrderController {
     const menu = await this.#getMenu();
     OutputView.printpreview(visitDate);
     this.#createOrder(menu, visitDate, visitDay);
-    this.printBeforeDiscount();
-    this.printFreeMenuAvailable();
+    OutputView.printBeforeDiscount(this.#billPaper.getBeforeDiscountPrice());
+    OutputView.printFreeMenu(this.#billPaper.getFreeMenuDiscountPrice());
     this.#printBenefitList();
     OutputView.printTotalBenefitPrice(this.#billPaper.getTotalBenefitPrice());
-    OutputView.printPayment(
-      this.#orderList.getBeforeDiscountPrice() -
-        this.#billPaper.getTotalDiscountPrice()
-    );
+    OutputView.printPayment(this.#billPaper.getpayment());
     this.#printBadgeList();
   }
   #printBadgeList() {
@@ -44,23 +41,13 @@ class OrderController {
     OutputView.printNoneEvent(this.#billPaper.getTotalDiscountPrice());
   }
 
-  printFreeMenuAvailable() {
-    OutputView.printFreeMenu(this.#orderList.isFreeMenuAvailable());
-  }
-
-  printBeforeDiscount() {
-    OutputView.printBeforeDiscount(
-      this.#orderList.getBeforeDiscountPrice().toLocaleString("ko-KR")
-    );
-  }
   #createOrder(menu, visitDate, visitDay) {
     this.#orderList = new Order(menu);
     OutputView.printMenuList(this.#orderList.getOrderList());
     this.#billPaper = new Bill(
       this.#orderList.getOrderList(),
       visitDate,
-      visitDay,
-      this.#orderList.isFreeMenuAvailable()
+      visitDay
     );
   }
 

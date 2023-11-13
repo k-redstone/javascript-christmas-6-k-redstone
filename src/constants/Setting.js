@@ -6,6 +6,7 @@ export const SETTING = Object.freeze({
   free_menu_price: 25000,
   special_discount_day: [3, 10, 17, 24, 25, 31],
   end_christmas_event_day: 25,
+  discount_threshold: 10000,
   default_christmas_discount: 1000,
   day_christmas_discount: 100,
   event_discount: 2023,
