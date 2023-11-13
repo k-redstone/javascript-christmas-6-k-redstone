@@ -12,7 +12,7 @@ class Badge {
       return SETTING.badge_santa;
     }
     if (Math.abs(price) >= 10000) {
-      return SETTING.badge_treetree;
+      return SETTING.badge_tree;
     }
     if (Math.abs(price) >= 5000) {
       return SETTING.badge_star;
