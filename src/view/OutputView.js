@@ -86,9 +86,7 @@ const OutputView = {
     if (price === 0)
       Console.print(price.toLocaleString("ko-KR") + CONSOLE_MESSAGE.price_unit);
     if (price !== 0)
-      Console.print(
-        "-" + price.toLocaleString("ko-KR") + CONSOLE_MESSAGE.price_unit
-      );
+      Console.print(price.toLocaleString("ko-KR") + CONSOLE_MESSAGE.price_unit);
   },
 
   printPayment(price) {

@@ -4,13 +4,11 @@ class Bill {
   #orderList;
   #visitDate;
   #visitDay;
-  // #isDiscount;
 
   constructor(orderList, visitDate, visitDay) {
     this.#orderList = orderList;
     this.#visitDate = visitDate;
     this.#visitDay = visitDay;
-    // this.#isDiscount = this.#setIsDiscountAvailable();
   }
 
   #setIsDiscountAvailable() {
@@ -30,7 +28,7 @@ class Bill {
     if (this.#visitDate <= SETTING.end_christmas_event_day) {
       return (
         SETTING.default_christmas_discount +
-        (this.#visitDate - 1) * SETTING.day_christmas_discount
+        (this.#visitDate - 1) * SETTING.day_christmas_discount * -1
       );
     }
     return 0;
@@ -43,7 +41,7 @@ class Bill {
         (menu) => menu.type === SETTING.week_discount_type
       );
       return discountList.reduce((acc, cur) => {
-        return (acc += cur.count * SETTING.event_discount);
+        return (acc += cur.count * SETTING.event_discount * -1);
       }, 0);
     }
     return 0;
@@ -56,7 +54,7 @@ class Bill {
         (menu) => menu.type === SETTING.weekend_discount_type
       );
       return discountList.reduce((acc, cur) => {
-        return (acc += cur.count * SETTING.event_discount);
+        return (acc += cur.count * SETTING.event_discount * -1);
       }, 0);
     }
     return 0;
@@ -65,22 +63,15 @@ class Bill {
   getSpecialDiscountPrice() {
     if (!this.#setIsDiscountAvailable()) return 0;
     if (SETTING.special_discount_day.includes(this.#visitDate)) {
-      return SETTING.special_discount;
+      return SETTING.special_discount * -1;
     }
     return 0;
   }
 
-  // getFreeMenuDiscountPrice() {
-  //   if (this.#isFreeMenu) {
-  //     return SETTING.free_menu_price;
-  //   }
-  //   return 0;
-  // }
-
   getFreeMenuDiscountPrice() {
     if (!this.#setIsDiscountAvailable()) return 0;
     if (this.getBeforeDiscountPrice() >= SETTING.free_menu_threshold)
-      return SETTING.free_menu_price;
+      return SETTING.free_menu_price * -1;
     return 0;
   }
 
@@ -104,7 +95,7 @@ class Bill {
   }
 
   getpayment() {
-    return this.getBeforeDiscountPrice() - this.getTotalDiscountPrice();
+    return this.getBeforeDiscountPrice() + this.getTotalDiscountPrice();
   }
 }
 
