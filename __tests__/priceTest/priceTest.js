@@ -20,6 +20,13 @@ const testDataNone = [
   { name: "제로콜라", count: 1, price: 3000, type: "beverage" },
 ];
 
+const testDataAll = [
+  { name: "타파스", count: 1, price: 5500, type: "appetizer" },
+  { name: "제로콜라", count: 1, price: 3000, type: "beverage" },
+  { name: "초코케이크", count: 1, price: 15000, type: "dessert" },
+  { name: "티본스테이크", count: 2, price: 55000, type: "mainCourse" },
+];
+
 describe("가격 테스트", () => {
   test("할인 전 총 주문 금액", () => {
     const output = 80000;
@@ -103,5 +110,33 @@ describe("가격 테스트", () => {
     const bill = new Bill(testDataNone, 3, 6);
 
     expect(bill.getTotalBenefitPrice()).toEqual(output);
+  });
+
+  test("총 혜택 금액 (주말)", () => {
+    const output = -30846;
+    const bill = new Bill(testDataAll, 9, 6);
+
+    expect(bill.getTotalBenefitPrice()).toEqual(output);
+  });
+
+  test("총 혜택 금액 (평일)", () => {
+    const output = -28423;
+    const bill = new Bill(testDataAll, 5, 2);
+
+    expect(bill.getTotalBenefitPrice()).toEqual(output);
+  });
+
+  test("총 혜택 금액 (평일 & 특별할인)", () => {
+    const output = -29923;
+    const bill = new Bill(testDataAll, 10, 0);
+
+    expect(bill.getTotalBenefitPrice()).toEqual(output);
+  });
+
+  test("할인 후 예상 금액", () => {
+    const output = 128577;
+    const bill = new Bill(testDataAll, 10, 0);
+
+    expect(bill.getpayment()).toEqual(output);
   });
 });
