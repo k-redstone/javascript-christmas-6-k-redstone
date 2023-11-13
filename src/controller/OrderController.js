@@ -12,22 +12,32 @@ class OrderController {
   #billPaper;
 
   async run() {
+    await this.#selectDateAndMenu();
+    this.#printEventPlanner();
+    this.#printBadgeList();
+  }
+
+  async #selectDateAndMenu() {
     OutputView.printIntro();
     const [visitDate, visitDay] = await this.#getVisitDate();
     const menu = await this.#getMenu();
     OutputView.printpreview(visitDate);
     this.#createOrder(menu, visitDate, visitDay);
+  }
+
+  #printEventPlanner() {
     OutputView.printBeforeDiscount(this.#billPaper.getBeforeDiscountPrice());
     OutputView.printFreeMenu(this.#billPaper.getFreeMenuDiscountPrice());
     this.#printBenefitList();
     OutputView.printTotalBenefitPrice(this.#billPaper.getTotalBenefitPrice());
     OutputView.printPayment(this.#billPaper.getpayment());
-    this.#printBadgeList();
   }
+
   #printBadgeList() {
     const badge = new Badge(this.#billPaper.getTotalBenefitPrice());
     OutputView.printBadge(badge.getBadge());
   }
+
   #printBenefitList() {
     OutputView.printChristmasDiscount(
       this.#billPaper.getChristmasDiscountPrice()
