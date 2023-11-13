@@ -6,6 +6,20 @@ const testData = [
   { name: "티본스테이크", count: 1, price: 55000, type: "mainCourse" },
 ];
 
+const testDataOver = [
+  { name: "제로콜라", count: 1, price: 3000, type: "beverage" },
+  { name: "초코케이크", count: 1, price: 15000, type: "dessert" },
+  { name: "티본스테이크", count: 1, price: 55000, type: "mainCourse" },
+  { name: "해산물파스타", count: 2, price: 55000, type: "mainCourse" },
+];
+const testDataUnder = [
+  { name: "아이스크림", count: 1, price: 5000, type: "dessert" },
+];
+const testDataNone = [
+  { name: "타파스", count: 1, price: 5500, type: "appetizer" },
+  { name: "제로콜라", count: 1, price: 3000, type: "beverage" },
+];
+
 describe("가격 테스트", () => {
   test("할인 전 총 주문 금액", () => {
     const output = 80000;
@@ -35,16 +49,23 @@ describe("가격 테스트", () => {
     expect(bill.getWeekDiscountPrice()).toEqual(output);
   });
 
-  test("주말 할인금액", () => {
-    const testData = [
-      { name: "제로콜라", count: 1, price: 3000, type: "beverage" },
-      { name: "초코케이크", count: 1, price: 15000, type: "dessert" },
-      { name: "티본스테이크", count: 1, price: 55000, type: "mainCourse" },
-      { name: "해산물파스타", count: 2, price: 55000, type: "mainCourse" },
-    ];
-    const output = -6069;
+  test("평일 할인금액 적용 안됨", () => {
+    const output = 0;
+    const bill = new Bill(testData, 17, 5);
 
-    const bill = new Bill(testData, 16, 5, false);
+    expect(bill.getWeekDiscountPrice()).toEqual(output);
+  });
+
+  test("주말 할인금액", () => {
+    const output = -6069;
+    const bill = new Bill(testDataOver, 16, 5);
+
+    expect(bill.getWeekendDiscountPrice()).toEqual(output);
+  });
+
+  test("주말 할인금액 적용 안됨", () => {
+    const output = 0;
+    const bill = new Bill(testDataOver, 16, 0);
 
     expect(bill.getWeekendDiscountPrice()).toEqual(output);
   });
@@ -56,15 +77,31 @@ describe("가격 테스트", () => {
     expect(bill.getSpecialDiscountPrice()).toEqual(output);
   });
 
-  test("증정 메뉴 금액", () => {
-    const testData = [
-      { name: "티본스테이크", count: 1, price: 55000, type: "mainCourse" },
-      { name: "해산물파스타", count: 2, price: 55000, type: "mainCourse" },
-    ];
-    const output = -25000;
+  test("특별 할인금액 적용 안됨", () => {
+    const output = 0;
+    const bill = new Bill(testData, 11, 0);
 
-    const bill = new Bill(testData, 31, 0, true);
+    expect(bill.getSpecialDiscountPrice()).toEqual(output);
+  });
+
+  test("증정 메뉴 금액", () => {
+    const output = -25000;
+    const bill = new Bill(testDataOver, 31, 0);
 
     expect(bill.getFreeMenuDiscountPrice()).toEqual(output);
+  });
+
+  test("증정 메뉴 금액 적용 안됨", () => {
+    const output = 0;
+    const bill = new Bill(testDataUnder, 31, 0);
+
+    expect(bill.getFreeMenuDiscountPrice()).toEqual(output);
+  });
+
+  test("혜택 적용 안됨", () => {
+    const output = 0;
+    const bill = new Bill(testDataNone, 3, 6);
+
+    expect(bill.getTotalBenefitPrice()).toEqual(output);
   });
 });
